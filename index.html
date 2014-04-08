@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title>Untitled Document</title>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+		<script src="/socket.io/socket.io.js"></script>
+		<style>
+			pre {
+				background-color: #eee;
+				padding: 10px;
+			}
+
+			pre.p {
+				white-space: nowrap;
+			}
+
+			pre p.command {
+				font-weight: bold;
+			}
+
+			pre p.stderr {
+				color: red;
+			}
+		</style>
+	</head>
+	<body>
+
+		<form>
+			<label>Please enter your name:</label>
+			<input id="namefield"><input type="submit" value="Set" />
+		</form>
+
+		<pre></pre>
+
+
+		<script>
+		var socket = io.connect();
+		socket.on('data', function (data) {
+			console.log(data);
+		});
+
+		socket.on('command', function (data) {
+			var $p = $('<p class="command">').text(data);
+			$p.appendTo('pre');
+		});
+
+		socket.on('stdout', function (data) {
+			var $p = $('<p class="stdout">').text(data);
+			$p.appendTo('pre');
+		});
+
+		socket.on('stderr', function (data) {
+			var $p = $('<p class="stderr">').text(data);
+			$p.appendTo('pre');
+		});
+
+		$('form').on('submit', function (ev) {
+			ev.preventDefault();
+
+			socket.emit('name', $('#namefield').val());
+		});
+
+		</script>
+	</body>
+</html>

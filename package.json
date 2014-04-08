@@ -1,0 +1,16 @@
+{
+  "name": "commandsocket",
+  "version": "0.0.0",
+  "description": "Quick and dirty shell mirror",
+  "main": "index.js",
+  "dependencies": {
+    "prompt": "~0.2.12",
+    "socket.io": "~0.9.16"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jarvis Badgley <chiper@chipersoft.com> (http://chipersoft.com/)",
+  "license": "MIT"
+}
