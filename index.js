@@ -54,6 +54,7 @@ function promptForCommand () {
 		});
 
 		cp.stdout.pipe(process.stdout);
+		cp.stderr.pipe(process.stderr);
 
 		cp.stdout.on('data', function (data) {
 			io.sockets.in('shell').emit('stdout', data);
